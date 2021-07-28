@@ -8,3 +8,11 @@ You will create your first machine in VirtualBox (or UTM if you can’t use Virt
 See the subjects for further information
 
 [SUBJECTS](Resources/en.subject.pdf)
+
+Usefull links:
+
+- Hardening sudoers configuration:
+https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
+
+- Configuration of UFW:
+https://wiki.ubuntu-it.org/Sicurezza/Ufw
