@@ -11,6 +11,9 @@ See the subjects for further information
 
 Usefull links:
 
+- How To DNF:
+https://docs.fedoraproject.org/en-US/quick-docs/dnf/
+
 - Hardening sudoers configuration:
 https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
 
