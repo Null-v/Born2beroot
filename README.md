@@ -19,3 +19,6 @@ https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/
 
 - Configuration of UFW:
 https://wiki.ubuntu-it.org/Sicurezza/Ufw
+
+- Password policy:
+https://www.server-world.info/en/note?os=CentOS_8&p=pam&f=1
