@@ -22,3 +22,9 @@ https://wiki.ubuntu-it.org/Sicurezza/Ufw
 
 - Password policy:
 https://www.server-world.info/en/note?os=CentOS_8&p=pam&f=1
+
+Usefull Tips:
+
+```
+dnf module disable httpd nginx
+```
