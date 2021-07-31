@@ -23,6 +23,9 @@ https://wiki.ubuntu-it.org/Sicurezza/Ufw
 - Password policy:
 https://www.server-world.info/en/note?os=CentOS_8&p=pam&f=1
 
+- Installing & configuring lighttpd, Mariadb, PHP
+https://www.howtoforge.com/how-to-install-lighttpd-with-php-fpm-and-mariadb-on-centos-8/
+
 Usefull Tips:
 
 ```
