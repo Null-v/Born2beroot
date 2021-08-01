@@ -28,6 +28,16 @@ https://www.howtoforge.com/how-to-install-lighttpd-with-php-fpm-and-mariadb-on-c
 
 Usefull tips, commands:
 
+- Passwords policy modified in:
+```
+/etc/login.defs
+/etc/security/pwquality.conf
+```
+- Sudo configuration file:
+```
+/etc/sudoers
+```
+
 - SELINUX
 ```
 sestatus
@@ -56,4 +66,48 @@ systemctl mask 'service_name'
 Visualize log
 ```
 journalctl
+```
+
+- UFW
+```
+ufw status numbered
+ufw delete 'number'
+```
+- CRON
+```
+crontab -l
+crontab -e
+```
+
+- CRON EXAMPLE:
+
+run at boot and every 10 minutes
+```
+@reboot bash monitoring.sh > monitoring.txt && wall -n monitoring.txt
+*/10 * * * * bash monitoring.sh > monitoring.txt && wall -n monitoring.txt
+```
+
+run at boot and every 30 seconds
+```
+@reboot bash monitoring.sh > monitoring.txt && wall -n monitoring.txt
+*/1 * * * * bash monitoring.sh > monitoring.txt && wall -n monitoring.txt
+*/1 * * * * sleep 30 && bash monitoring.sh > monitoring.txt && wall -n monitoring.txt
+```
+
+- Change hostname, modify:
+```
+/etc/hostname
+```
+
+- BASIC
+```
+useradd
+groups
+passwd
+addgroup
+usermod -a -G 'group_name' 'user_name'
+hostname
+ssh [-p [port] [-l 'login_name'] 'hostname'
+lsblk
+shutdown - [ h | r ] now
 ```
