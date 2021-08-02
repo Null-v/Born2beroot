@@ -105,9 +105,9 @@ run at boot and every 30 seconds
 - BASIC
 ```
 useradd
+groupadd
 groups
 passwd
-addgroup
 usermod -a -G 'group_name' 'user_name'
 hostname
 ssh [-p [port] [-l 'login_name'] 'hostname'
