@@ -26,6 +26,9 @@ https://www.server-world.info/en/note?os=CentOS_8&p=pam&f=1
 - Installing & configuring lighttpd, Mariadb, PHP:
 https://www.howtoforge.com/how-to-install-lighttpd-with-php-fpm-and-mariadb-on-centos-8/
 
+- Check status of chronyd (NTP client/server):
+https://docs.fedoraproject.org/en-US/Fedora/18/html/System_Administrators_Guide/sect-Checking_if_chrony_is_synchronized.html
+
 Usefull tips, commands:
 
 - Passwords policy modified in:
