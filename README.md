@@ -7,7 +7,8 @@ You will create your first machine in VirtualBox (or UTM if you can’t use Virt
 
 See the subjects for further information
 
-[SUBJECTS](Resources/en.subject.pdf)
+[OLD SUBJECT](Resources/Born2beroot_en.subject_OLD.pdf)
+[NEW_SUBJECT](Resources/Born2beroot_en_subject_3_2.pdf)
 
 Usefull links:
 
