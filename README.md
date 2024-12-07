@@ -5,10 +5,11 @@ This project aims to introduce you to the wonderful world of virtualization.
 
 You will create your first machine in VirtualBox (or UTM if you can’t use VirtualBox) under specific instructions. Then, at the end of this project, you will be able to set up your own operating system while implementing strict rules.
 
-See the subjects for further information
+See the subjects for further information:
+
+[NEW SUBJECT](Resources/Born2beroot_en_subject_3_2.pdf)
 
 [OLD SUBJECT](Resources/Born2beroot_en.subject_OLD.pdf)
-[NEW_SUBJECT](Resources/Born2beroot_en_subject_3_2.pdf)
 
 Usefull links:
 
