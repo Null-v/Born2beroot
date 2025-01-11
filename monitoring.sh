@@ -7,38 +7,42 @@ PATH=$PATH:/usr/sbin
 #
 #	Architecture info
 #
-echo
-echo "	#Architecture:"
-echo "	 $(uname -srv)"
-echo "	#OS: $(uname -om)"
+arch=$(uname -srv)
+os=$(uname -om)
 #
 #	"physical processor" means all the physical processing unit present in the system:
-#	The formula is: Socket(s) X Core(s) per socket
 #
-Socket="$(lscpu | sed -n 's/^Socket(s)://p')"
-Core="$(lscpu | sed -n 's/Core(s) per socket://p')"
-echo "	#CPU physical:	$(($Socket * $Core))"
+cpu_phy=$(grep "physical id" /proc/cpuinfo | sort -u | wc -l)
 #
 #	"virtual processors" means all the processing units recognised by the system:
-#	The formula is: Socket(s) X Core(s) per socket X Thread(s) per core
 #
-vcpu="$(lscpu | sed -n 's/^CPU(s):[[:space:]]\+//p')"
-echo "	#vCPU:		$vcpu"
+vcpu=$(grep "processor" /proc/cpuinfo | wc -l)
 #
 #	Memory Usage
 #
-used_m="$(free --mega | awk 'NR==2 {print $3}')"
-ava_m="$(free --mega | awk 'NR==2 {print $7}')"
-tot_m="$(free --mega | awk 'NR==2 {print $2}')"
-echo -n "	#Memory Usage: $used_m MB"
-free --mega | awk 'NR==2 {printf(" (%.2f%%) "), $3/$2*100}'
-echo "| available: $ava_m MB"
+used_m=$(free --mega | awk 'NR==2 {print $3}')
+ava_m=$(free --mega | awk 'NR==2 {print $7}')
+tot_m=$(free --mega | awk 'NR==2 {print $2}')
+perc_m=$(free --mega | awk 'NR==2 {printf("(%.2f)"), $3/$2*100}')
+#
+#	Disk Usage
+#
+#	print the amount of storage/disk used in MB
+#	the total size of the disk in GB
+#	the percentage of the used space
+#
+disk_total=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_t += $2} END {printf ("%.1fGb"), disk_t/1024}')
+disk_use=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} END {print disk_u}')
+disk_percent=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} {disk_t+= $2} END {printf("%d"), disk_u/disk_t*100}')
 #
 #	CPU Load
 #
-time_c="$(top -bn1 | awk 'NR>7 {SUM+=$9}END{print SUM}')"
-tot_p=$((vcpu * 100))
-awk -v t_c=$time_c -v t_p=$tot_p 'BEGIN{print "	#CPU load: "(t_c/t_p)*100"%"}'
+time_c=$(top -bn 1 | awk 'NR>7 {SUM +=$9} END {print SUM}')
+tot_p=$(expr $vcpu * 100)
+
+# HERE !
+
+cpu_l=$(expr $time_c/$tot_p)
 #
 #	System last boot
 #
@@ -67,3 +71,15 @@ echo "			*MAC* "$(ip -0 a | awk '/link\/ether/ {print $2}')
 #	Numbers of commands executed with sudo
 #
 echo "	#Sudo: "$(journalctl _COMM=sudo | grep COMMAND | wc -l)
+
+wall "
+  #Architecture:
+  $arch
+  #OS: $os
+  #CPU physical: $cpu_phy
+  #vCPU: $vcpu
+  #Memory Usage: $used_m MB $perc_m% | available: $ava_m MB | total: $tot_m MB
+  #Disk Usage: $disk_use / $disk_total ($disk_percent%)
+  #CPU load: $cpu_l%
+  #"
+
