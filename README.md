@@ -84,7 +84,7 @@ crontab -l
 crontab -e
 ```
 
-- CRON EXAMPLE:
+- CRON EXAMPLE WITH THE OLD MONITORING.SH:
 
 run at boot and every 10 minutes
 ```
