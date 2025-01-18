@@ -92,6 +92,7 @@ ufw allow 'port'
 crontab -l
 crontab -e
 crontab -u root -e
+/etc/init.d/cron [ start | stop ]
 ```
 
 - CRON EXAMPLE WITH THE [OLD MONITORING.SH](monitoring_OLD.sh) :
