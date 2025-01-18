@@ -91,6 +91,7 @@ ufw allow 'port'
 ```
 crontab -l
 crontab -e
+crontab -u root -e
 ```
 
 - CRON EXAMPLE WITH THE [OLD MONITORING.SH](monitoring_OLD.sh) :
@@ -123,9 +124,19 @@ groups
 getent group [name]
 passwd
 chage -l <username>
+chage -m / -M <time> <username>
 usermod -a -G 'group_name' 'user_name'
 hostname
 ssh [-p [port] [-l 'login_name'] 'hostname'
 lsblk
 shutdown - [ h | r ] now
 ```
+
+- BONUS PART
+
+Script for securing MariaDB service
+```
+mysql_secure_installation
+```
+
+Additional Service: **OPENLITESPEED**
