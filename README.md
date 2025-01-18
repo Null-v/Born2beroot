@@ -36,11 +36,13 @@ Usefull tips, commands:
 - Passwords policy modified in:
 ```
 /etc/login.defs
+/etc/pam.d/common-password
 /etc/security/pwquality.conf
 ```
 - Sudo configuration file:
 ```
 /etc/sudoers
+/etc/sudoers.d/sudo_config
 ```
 
 - SELINUX
@@ -60,6 +62,9 @@ setsebool -P httpd_can_network_connect on
 ```
 
 - SYSTEMD
+
+The systemctl command interacts with the SystemD service manager to manage the services. Contrary to service command, it manages the services by interacting with the SystemD process instead of running the init script.
+
 ```
 systemctl --type='service_name' --state=active
 systemctl -a
@@ -68,6 +73,9 @@ systemctl [ start | stop ] 'service_name'
 systemctl [ enable | disable ] 'service_name'
 systemctl mask 'service_name'
 ```
+```
+service 'service_name' status
+```
 Visualize log
 ```
 journalctl
@@ -75,8 +83,9 @@ journalctl
 
 - UFW
 ```
-ufw status numbered
+ufw status numbered [verbose]
 ufw delete 'number'
+ufw allow 'port'
 ```
 - CRON
 ```
@@ -84,7 +93,7 @@ crontab -l
 crontab -e
 ```
 
-- CRON EXAMPLE WITH THE OLD MONITORING.SH:
+- CRON EXAMPLE WITH THE [OLD MONITORING.SH](monitoring_OLD.sh) :
 
 run at boot and every 10 minutes
 ```
@@ -106,10 +115,14 @@ run at boot and every 30 seconds
 
 - BASIC
 ```
-useradd
-groupadd
+useradd [name]
+adduser [name] [group]
+groupadd [name]
+addgroup [name]
 groups
+getent group [name]
 passwd
+chage -l <username>
 usermod -a -G 'group_name' 'user_name'
 hostname
 ssh [-p [port] [-l 'login_name'] 'hostname'
