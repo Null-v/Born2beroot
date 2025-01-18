@@ -37,49 +37,49 @@ disk_percent=$(df -m | grep "/dev/" | grep -v "/boot" | awk '{disk_u += $3} {dis
 #
 #	CPU Load
 #
-time_c=$(top -bn 1 | awk 'NR>7 {SUM +=$9} END {print SUM}')
-tot_p=$(expr $vcpu * 100)
-
-# HERE !
-
-cpu_l=$(expr $time_c/$tot_p)
+cpu_f=$(vmstat 1 2 | tail -1 | awk '{printf $15}')
+cpu_u=$(expr 100 - $cpu_f)
+cpu_p=$(printf "%.1f" $cpu_u)
 #
 #	System last boot
 #
-time_lb="$(who -b | sed -n 's/[[:space:]]\+system boot[[:space:]]\+//p')"
-echo "	#Last boot: $time_lb"
+time_lb=$(who -b | sed -n 's/[[:space:]]\+system boot[[:space:]]\+//p')
 #
 #	Using LVM
 #
-lsblk | awk -v str="no" '{if ($6 == "lvm") str="yes"}END{print "	#LVM use: "str}'
+lvmu=$(lsblk | awk -v str="no" '{if ($6 == "lvm") str="yes"}END{print str}')
 #
 #	Number of active connections
 #	"ss -atunp" shows all services that use tcp or udp
 #	"ss -t" instead shows not listening connections using tcp
 #
-ss -t | awk -v c=0 'NR>1 {if ($1 == "ESTAB") c++ } END{print "	#Connections TCP : "c" ESTABLISHED"}'
+tcpc=$(ss -ta | awk -v c=0 'NR>1 {if ($1 == "ESTAB") c++ } END{print c}')
 #
 #	Users logged to the server
 #
-echo "	#User log: "$(who | wc -l)
+ulog=$(who | wc -l)
 #
 #	IPv4 and MAC addresses of the server
 #
-echo "	#Network:	*IPv4* "$(hostname -I)
-echo "			*MAC* "$(ip -0 a | awk '/link\/ether/ {print $2}')
+ip=$(hostname -I)
+mac=$(ip -0 a | awk '/link\/ether/ {print $2}')
 #
 #	Numbers of commands executed with sudo
 #
-echo "	#Sudo: "$(journalctl _COMM=sudo | grep COMMAND | wc -l)
+cmdn=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 
 wall "
-  #Architecture:
+  #Architecture:	
   $arch
   #OS: $os
   #CPU physical: $cpu_phy
   #vCPU: $vcpu
   #Memory Usage: $used_m MB $perc_m% | available: $ava_m MB | total: $tot_m MB
   #Disk Usage: $disk_use / $disk_total ($disk_percent%)
-  #CPU load: $cpu_l%
-  #"
-
+  #CPU load: $cpu_p%
+  #Last boot: $time_lb
+  #LVM use: $lvmu
+  #Connections TCP: $tcpc ESTABLISHED
+  #User log: $ulog
+  #Network: IP $ip ($mac)
+  #Sudo: $cmdn cmd"
